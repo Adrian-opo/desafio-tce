@@ -1,9 +1,13 @@
+import { Contato } from './Contato';
 import { Endereco } from './Endereco';
 export interface PessoaRequisicao {
   nome: string;
-  email: string;
-  telefone: string;
-  registroSocial: string;
-  estaAtivo: boolean;
+  dataNascimento: string;
+  rg: string;
+  orgaoExpRg: string;
+  pai: string;
+  mae: string;
+  cpf: string;
   endereco: Endereco;
+  contato: Contato;
 }

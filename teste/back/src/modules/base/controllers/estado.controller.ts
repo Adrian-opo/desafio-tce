@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
-import { EstadoService } from '../services/estado.service';
 import { ApiTags } from '@nestjs/swagger';
+import { EstadoService } from '../services/estado.service';
 
 @ApiTags('Base')
 @Controller('base/estados')

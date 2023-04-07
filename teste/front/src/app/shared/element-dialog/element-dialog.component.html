@@ -8,6 +8,31 @@
       <mat-error>{{getErrorMessage()}}</mat-error>
     </mat-form-field>
     <mat-form-field>
+      <mat-label>Data Nascimento</mat-label>
+      <input matInput formControlName="dataNascimento" mask="0000-00-00" required/>
+      <mat-error>{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Rg</mat-label>
+      <input matInput formControlName="rg" min="7"  required/>
+      <mat-error>{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Orgao Expeditor</mat-label>
+      <input matInput formControlName="orgaoExpRg" min="3" required/>
+      <mat-error>{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Pai</mat-label>
+      <input matInput formControlName="pai" min="3" required/>
+      <mat-error>{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Mae</mat-label>
+      <input matInput formControlName="mae" min="3" required/>
+      <mat-error>{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+    <mat-form-field>
       <mat-label>Email</mat-label>
       <input matInput formControlName="email" email maxlength="60" required/>
       <mat-error>{{getErrorMessage()}}</mat-error>
@@ -18,9 +43,9 @@
       <mat-error>{{getErrorMessage()}}</mat-error>
     </mat-form-field>
     <mat-form-field>
-      <mat-label>CPF/CNPJ</mat-label>
-      <input matInput *ngIf="data ? true : false " formControlName="registroSocial" mask="000.000.000-00||00.000.000/0000-00" readonly/>
-      <input matInput *ngIf="data ? false : true " formControlName="registroSocial" mask="000.000.000-00||00.000.000/0000-00" required/>
+      <mat-label>CPF</mat-label>
+      <input matInput *ngIf="data ? true : false " formControlName="cpf" mask="000.000.000-00" readonly/>
+      <input matInput *ngIf="data ? false : true " formControlName="cpf" mask="000.000.000-00" required/>
       <mat-error>{{getErrorMessage()}}</mat-error>
     </mat-form-field>
     <mat-form-field>

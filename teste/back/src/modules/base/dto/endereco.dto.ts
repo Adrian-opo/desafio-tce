@@ -12,7 +12,6 @@ import {
   IsOptional,
   IsBoolean,
 } from 'class-validator';
-import { LocalizacaoDiferencia, Zona } from '../entities/enums/endereco.enum';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Cidade } from '../entities/cidade.entity';
 import { EntityExist } from '../../../helpers/validators/entity-exist';
@@ -75,21 +74,6 @@ export class EnderecoDto {
   })
   cep: string;
 
-  @ApiProperty({
-    enum: LocalizacaoDiferencia,
-  })
-  @IsNotEmpty()
-  @IsEnum(LocalizacaoDiferencia)
-  @IsString()
-  localizacaoDiferenciada: LocalizacaoDiferencia;
-
-  @ApiProperty({
-    enum: Zona,
-  })
-  @IsNotEmpty()
-  @IsEnum(Zona)
-  @IsString()
-  zona: Zona;
 
   @ApiProperty({ type: ObjectIDDto })
   @Validate(EntityExist, [Cidade, 'id', 'id'])

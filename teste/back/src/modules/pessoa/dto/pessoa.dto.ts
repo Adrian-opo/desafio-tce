@@ -14,7 +14,6 @@ import { ContatoDto } from '../../base/dto/contato.dto';
 import { ApiProperty } from '@nestjs/swagger';
 import { Unique } from '../../../helpers/validators/unique';
 import { Pessoa } from '../entities/pessoa.entity';
-import { Nacionalidade, Raca, Sexo } from '../entities/enums/pessoa.enum';
 import { IsCPF } from 'src/helpers/validators/cpf-cnpj.validator';
 
 export class PessoaDto {
@@ -30,6 +29,9 @@ export class PessoaDto {
   @IsNotEmpty()
   @IsString()
   cpf: string;
+  public formatarCpf() {
+    this.cpf = this.cpf.replace(/[^\d]/g, ''); // remove caracteres que não sejam dígitos
+  }
 
   @ApiProperty()
   @IsNotEmpty()
@@ -49,41 +51,6 @@ export class PessoaDto {
   @MaxDate(new Date())
   @Transform(({ value }) => new Date(value))
   dataNascimento: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  @IsEnum(Sexo)
-  sexo: Sexo;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  @IsEnum(Raca)
-  raca: Raca;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  @IsEnum(Nacionalidade)
-  nacionalidade: Nacionalidade;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
-  @Length(1)
-  paisNascimento: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
-  @Length(2, 2)
-  @Transform(({ value }) => value.toUpperCase())
-  ufNascimento: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
-  @Length(5)
-  @Transform(({ value }) => value.charAt(0).toUpperCase() + value.slice(1))
-  municipioNascimento: string;
 
   @ApiProperty()
   @IsNotEmpty()

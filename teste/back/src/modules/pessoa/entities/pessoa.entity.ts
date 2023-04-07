@@ -1,4 +1,6 @@
 import {
+  BeforeInsert,
+  BeforeUpdate,
   Column,
   CreateDateColumn,
   Entity,
@@ -22,6 +24,7 @@ export class Pessoa {
 
   @Column()
   cpf!: string;
+ 
 
   @Column()
   rg!: string;
@@ -32,6 +35,11 @@ export class Pessoa {
   @Column({ type: 'date' })
   dataNascimento!: string;
 
+  @Column()
+  pai!: string;
+
+  @Column()
+  mae!: string;
 
   @ManyToMany(() => Endereco, { cascade: ['remove'] })
   @JoinTable({

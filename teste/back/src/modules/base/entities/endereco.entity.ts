@@ -9,7 +9,6 @@ import {
 } from 'typeorm';
 import { Cidade } from './cidade.entity';
 import { Allow } from 'class-validator';
-import { LocalizacaoDiferencia, Zona } from './enums/endereco.enum';
 
 @Entity('base_endereco')
 export class Endereco {
@@ -34,12 +33,6 @@ export class Endereco {
 
   @Column()
   cep: string;
-
-  @Column({ type: 'enum', enum: LocalizacaoDiferencia })
-  localizacaoDiferenciada: LocalizacaoDiferencia;
-
-  @Column({ type: 'enum', enum: Zona })
-  zona: Zona;
 
   @ManyToOne(() => Cidade, { eager: true })
   @JoinColumn({ name: 'cidade_id', referencedColumnName: 'id' })

@@ -28,6 +28,10 @@ export class PessoaService {
 
     return entity;
   }
+  findAll(): Promise<Pessoa[]> {
+    return this.repository.find();
+  }
+
 
   async create(data: PessoaDto): Promise<Pessoa> {
     const endereco = await this.enderecoService.createOrUpdate(data);
@@ -52,7 +56,7 @@ export class PessoaService {
       ...data,
       updatedAt: new Date(),
     });
-
+   
     if (enderecos !== null) {
       enderecos.push(
         await this.enderecoService.createOrUpdate(data, enderecos[0].id),

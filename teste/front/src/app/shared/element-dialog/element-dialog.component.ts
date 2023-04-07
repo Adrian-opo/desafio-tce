@@ -28,9 +28,14 @@ export class ElementDialogComponent implements OnInit {
   ) {
     this.cadastroForm = this.construtorFormulario.group({
       nome: '',
+      dataNascimento: '',
+      rg:'',
+      orgaoExpRg: '',
+      pai: '',
+      mae: '',
       email: '',
       telefone: '',
-      registroSocial: '',
+      cpf: '',
       estaAtivo: '',
       cep: '',
       numero: '',
@@ -73,6 +78,7 @@ export class ElementDialogComponent implements OnInit {
   }
 
   submeterFormulario() {
+    console.log(this.cadastroForm.value);
     if (this.data) {
       const novaPessoa = this.converterCamposDoFormularioParaPessoaRequisicao(
         this.cadastroForm.value
@@ -94,23 +100,44 @@ export class ElementDialogComponent implements OnInit {
   ): PessoaRequisicao {
     return {
       nome: camposFormulario.nome,
-      email: camposFormulario.email,
-      telefone: camposFormulario.telefone,
-      registroSocial: camposFormulario.registroSocial,
-      estaAtivo: camposFormulario.estaAtivo || false,
+      cpf: camposFormulario.cpf,
+      rg: camposFormulario.rg,
+      orgaoExpRg: camposFormulario.orgaoExpRg,
+      dataNascimento: camposFormulario.dataNascimento,
+      pai: camposFormulario.pai,
+      mae: camposFormulario.mae,
       endereco: {
-        cep: camposFormulario.cep,
-        numero: camposFormulario.numero,
-        logradouro: camposFormulario.logradouro,
-        bairro: camposFormulario.bairro,
-        cidade: camposFormulario.cidade,
-        uf: camposFormulario.uf,
-        complemento: camposFormulario.complemento,
+        complemento: camposFormulario.endereco.complemento,
+        cep: camposFormulario.endereco.cep,
+        numero: camposFormulario.endereco.numero,
+        logradouro: camposFormulario.endereco.logradouro,
+        bairro: camposFormulario.endereco.bairro,
+        cidade: {
+          id: camposFormulario.endereco.cidade.id
+        },
+        uf: camposFormulario.endereco.uf
       },
+      contato: {
+        telefones: [
+          {
+            numero: camposFormulario.telefone,
+            tipo: 'Celular',
+            principal: true
+          }
+        ],
+        emails: [
+          {
+            email: camposFormulario.email,
+            principal: true
+          }
+        ]
+      }
     };
+    
   }
 
   getFormularioInvalido() {
+    console.log(this.cadastroForm.invalid);
     return this.cadastroForm.invalid;
   }
 

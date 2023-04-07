@@ -1,0 +1,11 @@
+# Application configs
+NODE_ENV=development
+API_PORT=3002
+
+# database config
+DB_PORT=3306
+DB_CONNECTION=mariadb
+DB_HOST=mariadb
+DB_USERNAME=root
+DB_PASSWORD=root
+DB_DATABASE=proinfe_db

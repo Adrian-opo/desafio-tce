@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class CadastroPessoaApiService {
-  apiUrl = 'http://localhost:5000/pessoas';
+  apiUrl = '/api/pessoa';
 
   constructor(private httpCliente: HttpClient) {}
 
@@ -17,14 +17,16 @@ export class CadastroPessoaApiService {
   }
 
   cadastrarPessoa(dadosPessoa: PessoaRequisicao): Observable<PessoaRequisicao> {
+    console.log(dadosPessoa);
     return this.httpCliente.post<PessoaRequisicao>(this.apiUrl, dadosPessoa);
+
   }
 
   editarPessoa(dadosPessoa: PessoaRequisicao): Observable<any> {
-    return this.httpCliente.put(`${this.apiUrl}/editar`, dadosPessoa);
+    return this.httpCliente.put(`${this.apiUrl}`, dadosPessoa);
   }
 
-  excluirPessoa(registroSocial: string): Observable<any> {
-    return this.httpCliente.delete(`${this.apiUrl}/excluir/${registroSocial}`);
+  excluirPessoa(id: string): Observable<any> {
+    return this.httpCliente.delete(`${this.apiUrl}/${id}`);
   }
 }

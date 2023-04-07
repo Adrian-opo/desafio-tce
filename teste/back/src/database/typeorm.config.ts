@@ -13,7 +13,7 @@ const typeormConfig = new DataSource({
   username: process.env.DB_USERNAME || '',
   password: process.env.DB_PASSWORD || '',
   synchronize: false,
-  migrationsTableName: 'migrations_ms_secretaria',
+  migrationsTableName: 'migrations_desafio-tce',
   entities: [__dirname + '/../**/*.entity{.ts,.js}'],
   migrations: [__dirname + '/migrations/**/*{.ts,.js}'],
   namingStrategy: new SnakeNamingStrategy(),

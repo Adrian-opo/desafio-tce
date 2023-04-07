@@ -16,9 +16,14 @@ export class HomeComponent {
   displayedColumns: string[] = [
     'edicao',
     'nome',
+    'dataNascimento',
+    'rg',
+    'orgaoExpRg',
+    'pai',
+    'mae',
     'email',
     'telefone',
-    'registroSocial',
+    'cpf',
     'estaAtivo',
     'cep',
     'numero',
@@ -66,6 +71,7 @@ export class HomeComponent {
   }
 
   iniciarNovoCadastro() {
+    console.log('iniciarNovoCadastro');
     const modalCadastro = this.modal.open(ElementDialogComponent);
     modalCadastro.afterClosed().subscribe((valor) => {
       this.listarPessoas();
@@ -82,19 +88,41 @@ export class HomeComponent {
   }
 
   converterPessoaParaCamposDoFormulario(pessoa: PessoaDadosCompletos): any {
+    console.log(pessoa);
     return {
       nome: pessoa.nome,
-      email: pessoa.email,
-      telefone: pessoa.telefone,
-      registroSocial: pessoa.registroSocial,
-      estaAtivo: pessoa.estaAtivo,
-      cep: pessoa.endereco.cep,
-      numero: pessoa.endereco.numero,
-      logradouro: pessoa.endereco.logradouro,
-      bairro: pessoa.endereco.bairro,
-      cidade: pessoa.endereco.cidade,
-      uf: pessoa.endereco.uf,
-      complemento: pessoa.endereco.complemento,
+      cpf: pessoa.cpf,
+      rg: pessoa.rg,
+      orgaoExpRg: pessoa.orgaoExpRg,
+      dataNascimento: pessoa.dataNascimento,
+      pai: pessoa.pai,
+      mae: pessoa.mae,
+      endereco: {
+        complemento: pessoa.endereco.complemento,
+        cep: pessoa.endereco.cep,
+        numero: pessoa.endereco.numero,
+        logradouro: pessoa.endereco.logradouro,
+        bairro: pessoa.endereco.bairro,
+        cidade: {
+          id: pessoa.endereco.cidade.id
+        },
+        uf: pessoa.endereco.uf
+      },
+      contato: {
+        telefones: [
+          {
+            numero: pessoa.telefone,
+            tipo: 'Celular',
+            principal: true
+          }
+        ],
+        emails: [
+          {
+            email: pessoa.email,
+            principal: true
+          }
+        ]
+      }
     };
   }
 
@@ -116,9 +144,9 @@ export class HomeComponent {
     });
   }
 
-  excluirPessoas(registroSocial: string) {
+  excluirPessoas(id: string) {
     this.pessoaService
-      .excluirPessoa(registroSocial)
+      .excluirPessoa(id)
       .subscribe((valor) =>
         this.atualizarTabela('Pessoa Removida com Sucesso!')
       );

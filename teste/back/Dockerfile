@@ -15,3 +15,5 @@ RUN rm -rf node_modules
 EXPOSE 3002
 
 CMD node dist/main
+
+

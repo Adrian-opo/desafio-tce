@@ -74,7 +74,7 @@ export abstract class EntityExistArrayValidator
 
   public defaultMessage(args: ValidationArguments) {
     const [EntityClass] = args.constraints;
-    const entity = EntityClass.name || 'Entity';
+    const entity = EntityClass.namee || 'Entity';
     return `Some Entity:${entity.toLowerCase()} does not exist`;
   }
 }

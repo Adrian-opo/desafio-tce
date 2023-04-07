@@ -1,36 +1,77 @@
-import { Controller, Get, Inject } from '@nestjs/common';
 import {
-  Nacionalidade,
-  Parentesco,
-  Raca,
-  Sexo,
-  TransporteAquaviario,
-} from '../entities/enums/pessoa.enum';
-import { ApiTags } from '@nestjs/swagger';
-import { CursoFormacao } from '../entities/curso-formacao.entity';
-import { Repository } from 'typeorm';
+  Body,
+  Controller,
+  Get,
+  HttpStatus,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
+import {
+  ApiBadRequestResponse,
+  ApiOkResponse,
+  ApiProperty,
+  ApiResponse,
+  ApiTags,
+  getSchemaPath,
+} from '@nestjs/swagger';
+import { PessoaUpdateDto } from '../dto/pessoa-update.dto';
+import { PessoaDto } from '../dto/pessoa.dto';
+import { PessoaService } from '../services/pessoa.service';
 
-@ApiTags('Pessoa')
+@ApiTags('Responsável')
 @Controller('pessoa')
 export class PessoaController {
-  constructor(
-    @Inject('CURSO_FORMACAO_REPOSITORY')
-    private repository: Repository<CursoFormacao>,
-  ) {}
+  constructor(private readonly service: PessoaService) {}
 
-  @Get('opcoes')
-  findAllOpcoes() {
-    return {
-      sexo: Object.values(Sexo),
-      raca: Object.values(Raca),
-      nacionalidade: Object.values(Nacionalidade),
-      parentesco: Object.values(Parentesco),
-      transporteAquaviario: Object.values(TransporteAquaviario),
-    };
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.service.findOne(id);
   }
 
-  @Get('cursos-formacao')
-  findAllFormacoes() {
-    return this.repository.find();
+  @Get()
+  @ApiOkResponse({
+    description: 'Retorna uma lista de pessoas',
+    schema: {
+      allOf: [
+        {
+          type: 'array',
+          items: { $ref: getSchemaPath(PessoaDto) },
+        },
+      ],
+    },
+  })
+  findAll() {
+    return this.service.findAll();
   }
+
+  @Post()
+  @ApiResponse({
+    status: 201,
+    description: 'Registro criado com sucesso',
+  })
+  @ApiResponse({ status: 403, description: 'Forbidden' })
+  @ApiBadRequestResponse({
+    description: 'Erros no envio do conteúdo',
+    type: () => DefaultException,
+  })
+  create(@Body() data: PessoaDto) {
+    data.cpf = data.cpf.replace(/[^\d]/g, '');
+    return this.service.create(data);
+  }
+
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() data: PessoaUpdateDto) {
+    data.cpf = data.cpf.replace(/[^\d]/g, '');
+    return this.service.update(id, data);
+  }
+}
+
+export class DefaultException {
+  @ApiProperty({ required: true, type: Number, default: 400 })
+  statusCode: HttpStatus.BAD_REQUEST;
+  @ApiProperty()
+  message: [];
+  @ApiProperty()
+  error: string;
 }
