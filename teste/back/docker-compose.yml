@@ -1,0 +1,37 @@
+version: '3.0'
+services:
+  app:
+    image: node:16
+    #restart: always
+    container_name: api-secretaria
+    command: [sh, -c, 'su node -c "npm install && npm run start:dev"']
+    volumes:
+      - .:/code
+    working_dir: /code
+    env_file: 
+      - .env
+    ports:
+      - "${API_PORT}:${API_PORT}"
+    depends_on: 
+      - mariadb
+    networks:
+      - escolas-conectadas-net
+
+  mariadb:
+    image: mariadb
+    container_name: service-mariadb-sec
+    #restart: always
+    environment:
+      MYSQL_DATABASE: "${DB_DATABASE}"
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "${DB_PORT}:3306"
+    volumes:
+      - ./volumes/mariadb:/var/lib/mysql
+    networks:
+      - escolas-conectadas-net
+
+networks:
+  escolas-conectadas-net:
+    #name: escolas-conectadas-net
+    driver: bridge

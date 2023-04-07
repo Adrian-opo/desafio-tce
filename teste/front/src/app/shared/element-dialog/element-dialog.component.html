@@ -1,0 +1,72 @@
+<h1 mat-dialog-title class="dialog-title">Cadastrar Pessoa</h1>
+
+<form [formGroup]="cadastroForm" (ngSubmit)="submeterFormulario()">
+  <div mat-dialog-content class="dialog-fields">
+    <mat-form-field>
+      <mat-label>Nome</mat-label>
+      <input matInput formControlName="nome" minlength="3" maxlength="60" required/>
+      <mat-error>{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" email maxlength="60" required/>
+      <mat-error>{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Telefone</mat-label>
+      <input matInput formControlName="telefone" mask="(00) 0000-0000" required/>
+      <mat-error>{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>CPF/CNPJ</mat-label>
+      <input matInput *ngIf="data ? true : false " formControlName="registroSocial" mask="000.000.000-00||00.000.000/0000-00" readonly/>
+      <input matInput *ngIf="data ? false : true " formControlName="registroSocial" mask="000.000.000-00||00.000.000/0000-00" required/>
+      <mat-error>{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>CEP</mat-label>
+      <input matInput formControlName="cep" (blur)="consultarCep($event)"  mask="00000-000" required/>
+      <mat-error>{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Numero</mat-label>
+      <input matInput formControlName="numero" mask="0*" maxlength="10" required />
+      <mat-error>{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Complemento</mat-label>
+      <input matInput formControlName="complemento" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Endereço</mat-label>
+      <input matInput formControlName="logradouro" readonly minlength="2" required />
+      <mat-hint>Campo preenchido por CEP!</mat-hint>
+      <mat-error>{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Bairro</mat-label>
+      <input matInput formControlName="bairro" readonly minlength="2" required/>
+      <mat-hint>Campo preenchido por CEP!</mat-hint>
+      <mat-error>{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Cidade</mat-label>
+      <input matInput formControlName="cidade" readonly minlength="2" required/>
+      <mat-hint>Campo preenchido por CEP!</mat-hint>
+      <mat-error>{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>UF</mat-label>
+      <input matInput formControlName="uf" readonly minlength="2" required/>
+      <mat-hint>Campo preenchido por CEP!</mat-hint>
+      <mat-error>{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+    <mat-checkbox *ngIf="data ? true : false " formControlName="estaAtivo" class="example-margin">Cadastro Ativo</mat-checkbox>
+
+  </div>
+  <div mat-dialog-actions class="dialog-buttons">
+    <button mat-button type="button" [mat-dialog-close]="false">Cancelar</button>
+    <button mat-button [disabled]="getFormularioInvalido()" type="submit">{{data? 'Editar' : 'Cadastrar'}}</button>
+  </div>
+</form>
