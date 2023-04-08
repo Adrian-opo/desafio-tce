@@ -1,8 +1,10 @@
 # desafio-tce
 
 # Configuração
+
+
   * Clonar ou baixar código zipado deste repositório;
-  
+  * Utilizar sistema linux
   * Instalar [NVM](https://github.com/nvm-sh/nvm);
   * Instale a versao 16 do node ```nvm install 16```
   * Instalar [Angular CLI](https://github.com/angular/angular-cli) versão 15.2.2;
