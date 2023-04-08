@@ -30,14 +30,26 @@ export class PessoaDto {
   @IsString()
   cpf: string;
   public formatarCpf() {
-    this.cpf = this.cpf.replace(/[^\d]/g, ''); // remove caracteres que não sejam dígitos
+    if(this.cpf)
+    {
+      this.cpf = this.cpf.replace(/[^\d]/g, '');
+    }
   }
 
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
-  @Length(7)
   rg: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  pai : string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  mae : string;
 
   @ApiProperty()
   @IsNotEmpty()

@@ -36,10 +36,18 @@
           </td>
         </ng-container>
 
+
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef>ID</th>
+          <td mat-cell *matCellDef="let dado">{{ dado.id }}</td>
+        </ng-container>
+
         <ng-container matColumnDef="nome">
           <th mat-header-cell *matHeaderCellDef>Nome</th>
           <td mat-cell *matCellDef="let dado">{{ dado.nome }}</td>
         </ng-container>
+
+
 
         <ng-container matColumnDef="dataNascimento">
           <th mat-header-cell *matHeaderCellDef>Data de Nascimento</th>
@@ -91,51 +99,46 @@
           </td>
         </ng-container>
 
-        <ng-container matColumnDef="estaAtivo">
-          <th mat-header-cell *matHeaderCellDef>Cadastro Ativo</th>
-          <td mat-cell *matCellDef="let dado">
-            {{ dado.estaAtivo == true ? "Ativo" : "Inativo" }}
-          </td>
-        </ng-container>
+       
 
         <ng-container matColumnDef="cep">
           <th mat-header-cell *matHeaderCellDef>CEP</th>
           <td mat-cell *matCellDef="let dado">
-            {{ dado.endereco.cep | mask : "00000-000" }}
+            {{ dado.cep | mask : "00000-000" }}
           </td>
         </ng-container>
 
         <ng-container matColumnDef="numero">
           <th mat-header-cell *matHeaderCellDef>Número</th>
-          <td mat-cell *matCellDef="let dado">{{ dado.endereco.numero }}</td>
+          <td mat-cell *matCellDef="let dado">{{ dado.numero }}</td>
         </ng-container>
 
         <ng-container matColumnDef="logradouro">
           <th mat-header-cell *matHeaderCellDef>Endereço</th>
           <td mat-cell *matCellDef="let dado">
-            {{ dado.endereco.logradouro }}
+            {{ dado.logradouro }}
           </td>
         </ng-container>
 
         <ng-container matColumnDef="bairro">
           <th mat-header-cell *matHeaderCellDef>Bairro</th>
-          <td mat-cell *matCellDef="let dado">{{ dado.endereco.bairro }}</td>
+          <td mat-cell *matCellDef="let dado">{{ dado.bairro }}</td>
         </ng-container>
 
         <ng-container matColumnDef="cidade">
           <th mat-header-cell *matHeaderCellDef>Cidade</th>
-          <td mat-cell *matCellDef="let dado">{{ dado.endereco.cidade }}</td>
+          <td mat-cell *matCellDef="let dado">{{ dado.cidade }}</td>
         </ng-container>
 
         <ng-container matColumnDef="uf">
           <th mat-header-cell *matHeaderCellDef>UF</th>
-          <td mat-cell *matCellDef="let dado">{{ dado.endereco.uf }}</td>
+          <td mat-cell *matCellDef="let dado">{{ dado.uf }}</td>
         </ng-container>
 
         <ng-container matColumnDef="complemento">
           <th mat-header-cell *matHeaderCellDef>Complemento</th>
           <td mat-cell *matCellDef="let dado">
-            {{ dado.endereco.complemento }}
+            {{ dado.complemento }}
           </td>
         </ng-container>
 

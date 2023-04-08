@@ -20,6 +20,11 @@ export class CidadeService {
     return cidade;
   }
 
+  async getCityIdByName(name: string): Promise<number> {
+    console.log('name', name);
+    const city = await this.repository.findOne( { where: { nome: name }});
+    return city ? city.id : null;
+  }
   async findByUf(uf: string): Promise<Cidade[]> {
     return this.repository.find({
       where: {

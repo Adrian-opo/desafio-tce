@@ -7,8 +7,9 @@ import { ApiTags } from '@nestjs/swagger';
 export class CidadeController {
   constructor(private readonly cidadeService: CidadeService) {}
 
-  @Get(':uf')
-  findAll(@Param('uf') uf: string) {
-    return this.cidadeService.findByUf(uf);
-  }
+
+  @Get(':name')
+  async getCityIdByName(@Param('name') name: string): Promise<number> {
+    return this.cidadeService.getCityIdByName(name);
+}
 }
