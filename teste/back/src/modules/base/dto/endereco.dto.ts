@@ -23,50 +23,47 @@ import { Type } from 'class-transformer';
 
 export class EnderecoDto {
   @ApiProperty({
-    minLength: 3,
+  
   })
-  @IsNotEmpty()
+  
   @IsString()
-  @Length(3)
   logradouro: string;
 
   @ApiProperty({
-    minimum: 1,
+   
   })
-  @IsNotEmpty()
+  
   @IsNumber()
-  @Min(1)
+ 
   numero: number;
 
   @ApiProperty({
-    minLength: 3,
+   
   })
-  @IsNotEmpty()
+  
   @IsString()
-  @Length(3)
   bairro: string;
 
   @ApiPropertyOptional({
-    minLength: 3,
+   
   })
   @IsOptional()
   @IsString()
-  @Length(3)
   complemento: string;
 
   @ApiPropertyOptional({
-    minLength: 3,
+    
   })
   @IsOptional()
   @IsString()
-  @Length(3)
+  
   pontoReferencia: string;
 
   @ApiProperty({
     minLength: 9,
     maxLength: 9,
   })
-  @IsNotEmpty()
+  
   @IsString()
   @Length(9, 9)
   @Matches(RegExp('^[0-9]{5}[-][0-9]{3}$'), {
@@ -77,7 +74,7 @@ export class EnderecoDto {
 
   @ApiProperty({ type: ObjectIDDto })
   @Validate(EntityExist, [Cidade, 'id', 'id'])
-  @IsNotEmpty()
+  
   @IsObject()
   @ValidateNested()
   @Type(() => ObjectIDDto)

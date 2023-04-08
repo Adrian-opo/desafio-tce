@@ -9,7 +9,6 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-
 @Component({
   selector: 'app-element-dialog',
   templateUrl: './element-dialog.component.html',
@@ -23,13 +22,14 @@ export class ElementDialogComponent implements OnInit {
     public data: any,
     public dialogRef: MatDialogRef<ElementDialogComponent>,
     private cepService: CepServiceService,
+    private construtorFormulario: FormBuilder,
     private cadastroService: CadastroPessoaApiService,
-    private construtorFormulario: FormBuilder
   ) {
     this.cadastroForm = this.construtorFormulario.group({
+      id : '',
       nome: '',
       dataNascimento: '',
-      rg:'',
+      rg: '',
       orgaoExpRg: '',
       pai: '',
       mae: '',
@@ -76,46 +76,70 @@ export class ElementDialogComponent implements OnInit {
       },
     });
   }
-
-  submeterFormulario() {
+  
+  async submeterFormulario() {
     console.log(this.cadastroForm.value);
     if (this.data) {
+      const id = this.data.id;
       const novaPessoa = this.converterCamposDoFormularioParaPessoaRequisicao(
         this.cadastroForm.value
       );
-      this.cadastroService.editarPessoa(novaPessoa).subscribe();
+      this.cadastroService.editarPessoa(await novaPessoa,id).subscribe();
       alert(`Informações Atualizadas com Sucesso`);
     } else {
       const novaPessoa = this.converterCamposDoFormularioParaPessoaRequisicao(
         this.cadastroForm.value
       );
-      this.cadastroService.cadastrarPessoa(novaPessoa).subscribe();
+      this.cadastroService.cadastrarPessoa(await novaPessoa).subscribe();
       alert(`Pessoa Cadastrada com Sucesso`);
     }
     this.dialogRef.close(true);
   }
 
-  converterCamposDoFormularioParaPessoaRequisicao(
+  async converterCamposDoFormularioParaPessoaRequisicao(
     camposFormulario: any
-  ): PessoaRequisicao {
+  ): Promise<PessoaRequisicao> {
+    console.log(camposFormulario)
+    let a = camposFormulario.dataNascimento;
+    const dia = a.substring(0, 2); // extrai os 4 primeiros caracteres (ano)
+    const mes = a.substring(2, 4); // extrai os caracteres 5 e 6 (mês)
+    const ano = a.substring(4, 8); // extrai os caracteres 7 e 8 (dia)
+    const dataFormatada = `${ano}-${mes}-${dia}`;
+    const city = camposFormulario.cidade;
+    const parte1 = camposFormulario.cep.substring(0, 5); // extrai os 5 primeiros caracteres
+    const parte2 = camposFormulario.cep.substring(5, 8); // extrai os caracteres restantes
+    const cepFormatado = `${parte1}-${parte2}`;
+    async function minhaFuncao() {
+      const response = await fetch(`api/base/cidades/${city}`);
+      const data = await response.json();
+      if(data.statusCode != 404){
+        return data;
+      }else{
+        return "";
+      }
+  
+      // fazer algo com camposFormulario
+    }
+    let aux = await minhaFuncao();
     return {
+      id: camposFormulario.id,
       nome: camposFormulario.nome,
       cpf: camposFormulario.cpf,
       rg: camposFormulario.rg,
       orgaoExpRg: camposFormulario.orgaoExpRg,
-      dataNascimento: camposFormulario.dataNascimento,
+      dataNascimento: dataFormatada,
       pai: camposFormulario.pai,
       mae: camposFormulario.mae,
       endereco: {
-        complemento: camposFormulario.endereco.complemento,
-        cep: camposFormulario.endereco.cep,
-        numero: camposFormulario.endereco.numero,
-        logradouro: camposFormulario.endereco.logradouro,
-        bairro: camposFormulario.endereco.bairro,
+        complemento: camposFormulario.complemento,
+        cep: cepFormatado,
+        numero: parseInt(camposFormulario.numero),
+        logradouro: camposFormulario.logradouro,
+        bairro: camposFormulario.bairro,
         cidade: {
-          id: camposFormulario.endereco.cidade.id
+          id: aux,
         },
-        uf: camposFormulario.endereco.uf
+        uf: camposFormulario.uf
       },
       contato: {
         telefones: [
@@ -133,10 +157,10 @@ export class ElementDialogComponent implements OnInit {
         ]
       }
     };
-    
+
   }
 
-  getFormularioInvalido() {
+  getFormularioInvalido(): boolean {
     console.log(this.cadastroForm.invalid);
     return this.cadastroForm.invalid;
   }

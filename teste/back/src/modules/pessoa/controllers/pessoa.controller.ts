@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpStatus,
   Param,
@@ -62,9 +63,19 @@ export class PessoaController {
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() data: PessoaUpdateDto) {
-    data.cpf = data.cpf.replace(/[^\d]/g, '');
+    if(data.cpf)
+    {
+      data.cpf = data.cpf.replace(/[^\d]/g, '');
+    }
+   
     return this.service.update(id, data);
   }
+
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.service.remove(id);
+  }
+
 }
 
 export class DefaultException {

@@ -5,6 +5,7 @@ import { PessoaDto } from '../dto/pessoa.dto';
 import { EnderecoService } from '../../base/services/endereco.service';
 import { ContatoService } from '../../base/services/contato.service';
 import { PessoaUpdateDto } from '../dto/pessoa-update.dto';
+import { async } from 'rxjs';
 
 @Injectable()
 export class PessoaService {
@@ -29,7 +30,9 @@ export class PessoaService {
     return entity;
   }
   findAll(): Promise<Pessoa[]> {
-    return this.repository.find();
+    return this.repository.find({
+      relations: ['enderecos', 'contato'],
+    });
   }
 
 
@@ -74,7 +77,10 @@ export class PessoaService {
     return this.repository.save(entity);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} pessoa`;
-  }
+
+  async  remove(id: string) {
+      return this.repository.remove(await this.findOne(id));
+    }
+  
+  
 }

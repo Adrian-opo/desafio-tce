@@ -21,19 +21,9 @@ export class HomeComponent {
     'orgaoExpRg',
     'pai',
     'mae',
-    'email',
-    'telefone',
     'cpf',
-    'estaAtivo',
-    'cep',
-    'numero',
-    'logradouro',
-    'bairro',
-    'cidade',
-    'uf',
-    'complemento',
-    'criadoEm',
-    'atualizadoEm',
+  
+   
   ];
 
   dataSource = new MatTableDataSource<PessoaDadosCompletos>();
@@ -71,7 +61,7 @@ export class HomeComponent {
   }
 
   iniciarNovoCadastro() {
-    console.log('iniciarNovoCadastro');
+    
     const modalCadastro = this.modal.open(ElementDialogComponent);
     modalCadastro.afterClosed().subscribe((valor) => {
       this.listarPessoas();
@@ -90,6 +80,7 @@ export class HomeComponent {
   converterPessoaParaCamposDoFormulario(pessoa: PessoaDadosCompletos): any {
     console.log(pessoa);
     return {
+      id: pessoa.id,
       nome: pessoa.nome,
       cpf: pessoa.cpf,
       rg: pessoa.rg,
@@ -97,28 +88,30 @@ export class HomeComponent {
       dataNascimento: pessoa.dataNascimento,
       pai: pessoa.pai,
       mae: pessoa.mae,
-      endereco: {
-        complemento: pessoa.endereco.complemento,
-        cep: pessoa.endereco.cep,
-        numero: pessoa.endereco.numero,
-        logradouro: pessoa.endereco.logradouro,
-        bairro: pessoa.endereco.bairro,
-        cidade: {
-          id: pessoa.endereco.cidade.id
-        },
-        uf: pessoa.endereco.uf
-      },
+      enderecos:[
+        {
+          complemento: pessoa.enderecos[0].complemento,
+          cep: pessoa.enderecos[0].cep,
+          numero:pessoa.enderecos[0].numero,
+          logradouro: pessoa.enderecos[0].logradouro,
+          bairro: pessoa.enderecos[0].bairro,
+          cidade: {
+          //  id: pessoa.cidade.id,
+          },
+          uf: pessoa.enderecos[0].uf
+        }
+      ] ,
       contato: {
         telefones: [
           {
-            numero: pessoa.telefone,
+            numero: pessoa.contato.telefones[0].numero,
             tipo: 'Celular',
             principal: true
           }
         ],
         emails: [
           {
-            email: pessoa.email,
+            email: pessoa.contato.emails[0].email,
             principal: true
           }
         ]
@@ -144,9 +137,10 @@ export class HomeComponent {
     });
   }
 
-  excluirPessoas(id: string) {
+
+  excluirPessoas(cpf: string) {
     this.pessoaService
-      .excluirPessoa(id)
+      .excluirPessoa(cpf)
       .subscribe((valor) =>
         this.atualizarTabela('Pessoa Removida com Sucesso!')
       );

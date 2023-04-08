@@ -2,7 +2,7 @@ import { Cidade } from "./Cidade";
 
 export interface Endereco {
   cep: string;
-  numero: string;
+  numero: GLfloat;
   logradouro: string;
   bairro: string;
   uf: string;
