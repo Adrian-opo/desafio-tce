@@ -1,8 +1,5 @@
 # desafio-tce
 
-# Aplicativo Web para Cadastro de Pessoas
-Aplicativo que utiliza a [API de Cadastro de Pessoas](https://github.com/brunosas88/cadastro-pessoa-api) para cadastro, edição, visualização e remoção de informações de pessoas em um banco de dados
-
 # Configuração
   * Clonar ou baixar código zipado deste repositório;
   
