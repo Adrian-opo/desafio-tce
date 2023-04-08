@@ -20,7 +20,7 @@ export class PessoaDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
-  @Length(5)
+  @Length(3)
   nome: string;
 
   @ApiProperty()
