@@ -4,10 +4,11 @@
   * Clonar ou baixar código zipado deste repositório;
   
   * Instalar [NVM](https://github.com/nvm-sh/nvm);
-  * Instalar [Angular CLI](https://github.com/angular/angular-cli) versão 15.2.2;
   * Instale a versao 16 do node ```nvm install 16```
+  * Instalar [Angular CLI](https://github.com/angular/angular-cli) versão 15.2.2;
+
   * Agora execulte o comando  ```npm install```
-  * Localizar o diretorio Aplication/front , iniciar terminal e usar comando ```ng build``` para baixar as dependencias do projeto;
+  * Localizar o diretorio teste/front , iniciar terminal e usar comando ```ng build``` para baixar as dependencias do projeto;
 
 # Como Usar
   * Dentro do mesmo diretorio usar comando ```ng serve -o``` no terminal para inicializar a aplicação;
@@ -23,7 +24,7 @@
 # BackEnd
   * Em outro Terminal
   * Instalar [Dokcer](https://www.docker.com/);
-  * Localize o diretorio Aplication/back e exculte os procediemntos a seguir
+  * Localize o diretorio teste/back e exculte os procediemntos a seguir
 
 ## Instalação em Ambiente de desenvolvimento:
 Por padrão a api sera iniciada  na porta _3002_
