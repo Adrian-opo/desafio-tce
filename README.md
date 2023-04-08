@@ -24,7 +24,7 @@ Aplicativo que utiliza a [API de Cadastro de Pessoas](https://github.com/brunosa
 
 ------------------------------------
 # BackEnd
-
+  * Em outro Terminal
   * Instalar [Dokcer](https://www.docker.com/);
   * Localize o diretorio Aplication/back e exculte os procediemntos a seguir
 
