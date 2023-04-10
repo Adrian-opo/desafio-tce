@@ -4,6 +4,8 @@
 
 
   * Clonar ou baixar código zipado deste repositório;
+  * SSH CLone ```git@github.com:Adrian-opo/desafio-tce.git```
+  * HTTPS Clone ```https://github.com/Adrian-opo/desafio-tce.git```
   * Utilizar sistema linux
   * Instalar [NVM](https://github.com/nvm-sh/nvm);
   * Instale a versao 16 do node ```nvm install 16```
